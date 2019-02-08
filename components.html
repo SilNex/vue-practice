@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Vue</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="example">
+        <my-component></my-component>
+        <child message="안녕하세요!"></child>
+
+    </div>
+
+    <div id="example-2">
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+
+    </div>
+
+
+    <script>
+        // Vue.component('my-component', {
+        //     template: '<div>사용자 정의 컴포넌트 입니다!</div>'
+        // })
+
+        // var Child = {
+        //     template: '<div>사용자 정의 컴포넌트 입니다~</div>'
+        // }
+
+        Vue.component('my-component', {
+            template: '<span>{{ message }}</span>',
+            data: function () {
+                return { message: 'hello' }
+            }
+        })
+
+        new Vue({
+            el: '#example',
+            // components: {
+            //     'my-component': Child
+            // }
+        })
+
+        var data = { counter: 0 }
+
+        Vue.component('simple-counter', {
+            template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+            data: function () {
+                return { counter: 0 }
+            }
+        })
+
+        new Vue({
+            el: '#example-2'
+        })
+
+        Vue.component('child', {
+            // props 정의
+            props: ['message'],
+            // 데이터와 마찬가지로 prop은 템플릿 내부에서 사용할 수 있으며
+            // vm의 this.message로 사용할 수 있습니다.
+            template: '<span>{{ message }}</span>'
+        })
+
+    </script>
+
+</body>
+
+</html>
