@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { eventBus } from "../main"
 export default {
   props: ['name', 'address', 'phone', 'hasDog'], 
   data () {
@@ -45,6 +46,8 @@ export default {
   methods: {
     changeUser () {
       this.$emit('child', this.user)
+      // eventBus.$emit('userWasEdited', new Date())
+      eventBus.userWasEdited(new Date())
     }
   }
 }
