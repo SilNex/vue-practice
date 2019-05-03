@@ -1,4 +1,9 @@
 export const dateFormat = {
+  data () {
+    return {
+      mixinData: 'Hi mixin'
+    }
+  },
   methods: {
     getDateFormat(date) {
       if (date) {

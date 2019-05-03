@@ -3,6 +3,7 @@
     <h1>User 컴포넌트</h1>
     <p>이름: {{ name }}</p>
     <p>{{ getDateFormat(createAt) }}</p>
+    <p>{{ mixinData }}</p>
     <hr>
     <v-layout row wrap>
       <v-flex xs12 sm6>
