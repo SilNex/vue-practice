@@ -30,7 +30,7 @@
       <v-list-tile>
         <v-list-tile-content>수정일자</v-list-tile-content>
         <v-list-tile-content class="align-end">
-          {{ editedDate }}
+          {{ getDateFormat(editedDate) }}
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
@@ -39,6 +39,8 @@
 
 <script>
 import { eventBus } from '../main'
+import { dateFormat } from '../mixins/dateFormat'
+
 export default {
   data () {
     return {
@@ -48,7 +50,7 @@ export default {
   props: ['name', 'address', 'phone', 'hasDog'],
   data () {
     return {
-      editedDate: new Date()
+      editedDate: null
     }
   },
   computed: {
@@ -60,6 +62,19 @@ export default {
     eventBus.$on('userWasEdited', (date) => {
         this.editedDate = date
     })
-  }
+  },
+  methods: {
+    // getDateFormat (date) {
+    //   if (date) {
+    //     let hours = date.getHours()
+    //     let minutes = date.getMinutes()
+    //     let fullDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDay()} ${hours}:${(date.getMinutes()<10?'0':'')}${minutes}`
+    //     return fullDate
+    //   } else {
+    //     return null
+    //   }
+    // }
+  },
+  mixins: [ dateFormat ]
 }
 </script>
