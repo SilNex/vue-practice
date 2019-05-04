@@ -1,10 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      fixed
-      app
-    >
+    <v-navigation-drawer v-model="drawer" fixed app>
       <v-list dense>
         <v-list-tile router :to="{name: 'home'}" exact>
           <v-list-tile-action>
@@ -14,12 +10,34 @@
             <v-list-tile-title>Home</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile  @click="$router.push('/about')" exact>
+        <v-list-tile router :to="{name: 'about'}" exact>
           <v-list-tile-action>
             <i class="fas fa-user"></i>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>About</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile
+          router
+          :to="{
+            name: 'users', 
+            params: {
+              userId : 4321,
+              name: 'hi'
+            },
+            query: {
+              group: 'member',
+              category: 'trial'
+            }
+          }"
+          exact
+        >
+          <v-list-tile-action>
+            <i class="fas fa-user"></i>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Users</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -46,9 +64,9 @@ export default {
     source: String
   },
   methods: {
-    test () {
-      alert('클릭')
+    test() {
+      alert("클릭");
     }
-  },
-}
+  }
+};
 </script>

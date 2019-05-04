@@ -8,6 +8,8 @@ const About = () => {
   return import(/* webpackChunkName: "about" */ './views/About.vue')
 }
 
+const Users = () => import(/* webpackChunkName: "about" */ './views/Users.vue')
+
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -24,6 +26,11 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: About
+    },
+    {
+      path: '/users/:userId',
+      name: 'users',
+      component: Users
     }
   ]
 })
