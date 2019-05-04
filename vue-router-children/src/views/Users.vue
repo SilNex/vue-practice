@@ -27,6 +27,9 @@ export default {
     return{
       userId: null
     }
-  }
+  },
+  created() {
+    console.log('created')
+  },
 };
 </script>
