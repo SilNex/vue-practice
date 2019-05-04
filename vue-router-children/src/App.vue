@@ -20,17 +20,7 @@
         </v-list-tile>
         <v-list-tile
           router
-          :to="{
-            name: 'users', 
-            params: {
-              userId : 4321,
-              name: 'hi'
-            },
-            query: {
-              group: 'member',
-              category: 'trial'
-            }
-          }"
+          :to="{name: 'users'}"
           exact
         >
           <v-list-tile-action>
