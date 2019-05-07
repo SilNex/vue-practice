@@ -1,11 +1,16 @@
 export const dateFormat = {
+  data () {
+    return {
+      mixinData: 'Hi mixin'
+    }
+  },
   methods: {
-    getDateAndTime(date) {
+    getDateFormat(date) {
       if (date) {
-        let hour = date.getHours()
+        let hours = date.getHours()
         let minutes = date.getMinutes()
-        let fullDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
-        return `${fullDate} ${hour}:${minutes}`
+        let fullDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDay()} ${hours}:${(date.getMinutes() < 10 ? '0' : '')}${minutes}`
+        return fullDate
       } else {
         return null
       }
