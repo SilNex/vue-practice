@@ -28,18 +28,20 @@
 
 <script>
 import { EventBus } from '@/main.js'
+import { mapMutations } from 'vuex'
 
   export default {
     data() {
       return {
         userId: null,
         password: null,
-        name: null,
+        name: null, 
         address: null,
         src: null
       }
     },
     methods: {
+      // ...mapMutations(['addUsers']),
       signUp() {
         let userObj = {
           userId: this.userId,
@@ -48,7 +50,9 @@ import { EventBus } from '@/main.js'
           address: this.address,
           src: this.src
         }
-        EventBus.$emit('signUp', userObj)
+        this.$store.commit('addUsers', userObj)
+        // this.addUsers(userObj)
+        // EventBus.$emit('signUp', userObj)
         this.clearForm()
       },
       clearForm() {
