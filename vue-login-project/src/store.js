@@ -1,10 +1,12 @@
 import Vue from "vue"
 import Vuex from "vuex"
+import router from "./router"
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    userInfo: null,
     allUsers: [
       { id: 1, name: "silnex", email: "silnex@silnex.kr", password: "1234" },
       { id: 2, name: "noone", email: "noone@silnex.kr", password: "1234" }
@@ -13,9 +15,10 @@ export default new Vuex.Store({
     isLoginError: false
   },
   mutations: {
-    loginSuccess(state) {
+    loginSuccess(state, payload) {
       state.isLogin = true
       state.isLoginError = false
+      state.userInfo = payload
     },
     loginError(state) {
       state.isLogin = false
@@ -30,11 +33,15 @@ export default new Vuex.Store({
           selectedUser = user
         }
       })
-      selectedUser === null
-        ? commit("loginError")
-        : selectedUser.password !== loginObj.password
-        ? commit("loginError")
-        : commit("loginSuccess")
+      if (
+        selectedUser === null ||
+        selectedUser.password !== loginObj.password
+      ) {
+        commit("loginError")
+      } else {
+        commit("loginSuccess", selectedUser)
+        router.push({ name: "mypage" })
+      }
     }
   }
 })
