@@ -38,7 +38,21 @@
       <v-toolbar-title>Application</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat v-if="isLogin">Welcome</v-btn>
+        <v-menu offset-y v-if="isLogin">
+          <template v-slot:activator="{ on }">
+            <v-btn flat dark v-on="on" icon>
+              <v-icon>more_vert</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-tile router :to="{ name: 'mypage' }">
+              <v-list-tile-title>마이페이지</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile @click="$store.dispatch('logout')">
+              <v-list-tile-title>로그아웃</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
         <v-btn flat v-else router :to="{ name: 'login' }">Login</v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -53,7 +67,7 @@
 
 <script>
 import { mapState } from "vuex"
-
+import { mapActions } from "vuex"
 export default {
   props: {
     source: String
@@ -63,6 +77,9 @@ export default {
   }),
   computed: {
     ...mapState(["isLogin"])
+  },
+  methods: {
+    ...mapActions(["logout"])
   }
 }
 </script>
