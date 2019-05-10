@@ -29,6 +29,7 @@
               "
               >Login</v-btn
             >
+            <v-btn @click="test()">테스트</v-btn>
           </div>
         </v-card>
       </v-flex>
@@ -38,6 +39,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex"
+import axios from "axios"
 
 export default {
   data() {
@@ -56,7 +58,22 @@ export default {
     ...mapState(["isLogin", "isLoginError"])
   },
   methods: {
-    ...mapActions(["login"])
+    ...mapActions(["login"]),
+    test() {
+      axios
+        .get("https://reqres.in/api/")
+        .then(res => {
+          // handle success
+          console.log(res)
+        })
+        .catch(err => {
+          // handle error
+          console.log(err)
+        })
+        .finally(() => {
+          // always executed
+        })
+    }
     // login() {
     //   let selectedUser = null
     //   this.allUsers.forEach(user => {
