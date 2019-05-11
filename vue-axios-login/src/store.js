@@ -15,6 +15,10 @@ export default new Vuex.Store({
     isLogin: false,
     isLoginError: false
   },
+  subscribe: mutation => {
+    // this.dispatch("getMemberInfo")
+    console.log(mutation)
+  },
   mutations: {
     loginSuccess(state, payload) {
       state.isLogin = true
@@ -32,53 +36,47 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    login({ commit }, loginObj) {
+    login({ dispatch }, loginObj) {
       axios
         .post("https://reqres.in/api/login", loginObj)
         .then(res => {
-          let config = {
-            headers: {
-              "access-token": res.data.token
-            }
-          }
-          axios
-            .get("https://reqres.in/api/users/2", config)
-            .then(res => {
-              let userInfo = {
-                id: res.data.data.id,
-                first_name: res.data.data.first_name,
-                last_name: res.data.data.last_name,
-                avatar: res.data.data.avatar
-              }
-              commit("loginSuccess", userInfo)
-            })
-            .catch(err => {
-              alert("이메일과 비밀번호를 확인해주세요")
-              console.log(err)
-            })
+          let token = res.data.token
+          localStorage.setItem("access_token", token)
+          dispatch("getMemberInfo")
         })
         .catch(err => {
           console.log(err)
         })
-      // let selectedUser = null
-      // state.allUsers.forEach(user => {
-      //   if (user.email === loginObj.email) {
-      //     selectedUser = user
-      //   }
-      // })
-      // if (
-      //   selectedUser === null ||
-      //   selectedUser.password !== loginObj.password
-      // ) {
-      //   commit("loginError")
-      // } else {
-      //   commit("loginSuccess", selectedUser)
-      //   router.push({ name: "mypage" })
-      // }
     },
     logout({ commit }) {
       commit("logout")
+      localStorage.removeItem("access_token")
       router.push({ name: "home" })
+    },
+    getMemberInfo({ commit }) {
+      let token = localStorage.getItem("access_token")
+      let userInfo = {}
+      let config = {
+        headers: {
+          "access-token": token
+        }
+      }
+      axios
+        .get("https://reqres.in/api/users/2", config)
+        .then(res => {
+          userInfo = {
+            id: res.data.data.id,
+            first_name: res.data.data.first_name,
+            last_name: res.data.data.last_name,
+            avatar: res.data.data.avatar
+          }
+          commit("loginSuccess", userInfo)
+        })
+        .catch(err => {
+          alert("이메일과 비밀번호를 확인해주세요")
+          console.log(err)
+        })
+      console.log(userInfo)
     }
   }
 })

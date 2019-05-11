@@ -7,6 +7,9 @@
 <script>
 import { mapState } from "vuex"
 export default {
+  beforeCreate() {
+    this.$store.dispatch("getMemberInfo")
+  },
   computed: {
     ...mapState(["userInfo"])
   }
