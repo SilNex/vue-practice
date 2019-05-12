@@ -54,29 +54,32 @@ export default new Vuex.Store({
       router.push({ name: "home" })
     },
     getMemberInfo({ commit }) {
-      let token = localStorage.getItem("access_token")
-      let userInfo = {}
-      let config = {
-        headers: {
-          "access-token": token
-        }
-      }
-      axios
-        .get("https://reqres.in/api/users/2", config)
-        .then(res => {
-          userInfo = {
-            id: res.data.data.id,
-            first_name: res.data.data.first_name,
-            last_name: res.data.data.last_name,
-            avatar: res.data.data.avatar
+      return new Promise((resolve, reject) => {
+        let token = localStorage.getItem("access_token")
+        let userInfo = {}
+        let config = {
+          headers: {
+            "access-token": token
           }
-          commit("loginSuccess", userInfo)
-        })
-        .catch(err => {
-          alert("이메일과 비밀번호를 확인해주세요")
-          console.log(err)
-        })
-      console.log(userInfo)
+        }
+        axios
+          .get("https://reqres.in/api/users/2", config)
+          .then(res => {
+            userInfo = {
+              id: res.data.data.id,
+              first_name: res.data.data.first_name,
+              last_name: res.data.data.last_name,
+              avatar: res.data.data.avatar
+            }
+            commit("loginSuccess", userInfo)
+            resolve()
+          })
+          .catch(err => {
+            alert("이메일과 비밀번호를 확인해주세요")
+            console.log(err)
+            reject()
+          })
+      })
     }
   }
 })

@@ -13,12 +13,14 @@ const rejectAuthUser = (to, from, next) => {
 }
 
 const onlyAuthUser = (to, from, next) => {
-  if (store.state.isLogin === false) {
-    alert("로그인이 필요한 화면입니다.")
-    next({ name: "login" })
-  } else {
-    next()
-  }
+  store.dispatch("getMemberInfo").then(() => {
+    if (store.state.isLogin === false) {
+      alert("로그인이 필요한 화면입니다.")
+      next({ name: "login" })
+    } else {
+      next()
+    }
+  })
 }
 
 export default new Router({
