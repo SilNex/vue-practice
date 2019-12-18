@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Vue Template</title>
+</head>
+<body>
+    <div id="app">
+        <span v-once>
+
+            변경하지 않습니다: {{ msg }}
+            {{ msg + msg2 }}
+        </span>
+        <br>
+        <span>
+            변경 하는겁니다: {{ msg2 }}
+        </span>
+
+        <p>Using mustaches: {{ rawHtml }}</p>
+        <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+
+        <div :id="dynamicId + new Date()">123</div>
+        <button :disabled="isButtonDisabled">Button</button>
+
+        <div>
+            <a :href="url">111</a>
+            <a @click="doSomething"> doSomething </a>
+        </div>
+        <div>
+            <a :[attributeName]="url"> ... </a>
+            <a @[eventName]="doSomething"> doSomething </a>
+        </div>
+
+        <form @submit.prevent="onSubmit" action="/"> 
+            <input type="submit" value="제출">
+        </form>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                msg: '조미료~',
+                msg2: '하이루',
+                rawHtml: '<span style="color: red">This should be red.</span>',
+                dynamicId: 12343,
+                isButtonDisabled: false,
+                url: "http://naver.com",
+                attributename: "href",
+                eventname: "click"
+            },
+            methods: {
+                doSomething: function () {
+                    console.log('doSomething')
+                },
+                onSubmit: function () {
+                    console.log('onSubmit')
+                }
+            },
+        })
+    </script>
+</body>
+</html>
