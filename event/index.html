@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Vue instance</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="counter += 1">Add 1</button>
+        <p> {{counter}} hit.</p>
+    </div>
+
+    <div id="app2">
+        <button @click="greet">Greet</button>
+    </div>
+
+    <div id="app3">
+        <button @click="say('hi')">say hi</button>
+        <button @click="say('what')">say what</button>
+        <form action="/">
+            <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+                Submit
+            </button>
+            <br>
+            <input v-on:keyup.page-down="say">
+            <br>
+            <input v-on:click.exact="say">
+        </form>
+
+        <div @click.self="say('div')">
+            <span> hi </span>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                counter: 0
+            }
+        })
+
+        var app2 = new Vue({
+            el: '#app2',
+            data: {
+                name: 'vue'
+            },
+            methods: {
+                greet: function (event) {
+                    alert('Hello ' + this.name + '!')
+                    if (event) {
+                        alert(event.target.tagName)
+                    }
+                }
+            }
+        })
+
+        var app3 = new Vue({
+            el: '#app3',
+            data: {
+            },
+            methods: {
+                say: function (message) {
+                    alert(message);
+                },
+                warn: function (message, event) {
+                    if (event) event.preventDefault();
+                    alert(message);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
