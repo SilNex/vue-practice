@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Vue conditional</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1 v-if="ok">Yes</h1>
+        <h1 v-else>No</h1>
+        <template v-if="ok">
+            <h1>Title</h1>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+        </template>
+
+        <div v-if="Math.random() > 0.5">
+            이제 날 볼 수 있어요
+        </div>
+        <div v-else>
+            이제는 안보입니다.
+        </div>
+
+        <template v-if="loginType === 'username'">
+            <label>사용자이름</label>            
+            <input placeholder="사용자 이름을 입력해주세요" key="username-input">
+        </template>
+        <template v-else>
+            <label>이메일</label>            
+            <input placeholder="이메일 주소를 입력해주세요" key="email-input">
+        </template>
+        <button @click="toggleLoginType">로그인 유형 변경</button>
+
+        <h1 v-show="ok">
+            안녕하세요!
+        </h1>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                ok: Math.random() > 0.5 ? true : false,
+                loginType: 'username'
+            },
+            methods: {
+                toggleLoginType: function () {
+                    if (this.loginType === 'username') {
+                        this.loginType = '';
+                    } else {
+                        this.loginType = 'username';
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
