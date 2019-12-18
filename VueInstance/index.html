@@ -23,7 +23,13 @@
 
         var app = new Vue({
             el: '#app',
-            data: obj
+            data: obj,
+            created: function () {
+                console.log('created!')
+            },
+            destroyed: function () {
+                console.log('destroyed')
+            }
         })
     </script>
 </body>
