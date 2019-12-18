@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Vue instance</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <my-child-component></my-child-component>
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+    </div>
+
+    <script>
+        // Vue.component('my-component', {
+        //     template: '<div>사용자 정의 컴포넌트 입니다!</div>'
+        // })
+        Vue.component('my-component', {
+            template: '<span>{{ message }}</span>',
+            data: function () {
+                return {
+                    message: "hello"
+                }
+            }
+        })
+        Vue.component('simple-counter', {
+            template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+            // 데이터는 기술적으로 함수이므로 Vue는 따지지 않지만
+            // 각 컴포넌트 인스턴스에 대해 같은 객체 참조를 반환합니다.
+            data: function () {
+                return {
+                    counter: 0
+                }
+            }
+        })
+        var Child = {
+            template: '<div>사용자 정의 child 컴포넌트입니다!</div>'
+        }
+        var app = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            components: {
+                'my-child-component': Child
+            }
+        })
+    </script>
+</body>
+
+</html>
