@@ -11,27 +11,15 @@
 
 <body>
     <div id="app">
-        <p>{{ foo }}</p>
-        <!-- obj.foo는 더이상 변하지 않습니다! -->
-        <button v-on:click="foo = 'baz'">Change it</button>
+
     </div>
 
     <script>
-        var obj = {
-            foo: 'bar'
-        }
-
-        // Object.freeze(obj)
-
         var app = new Vue({
             el: '#app',
-            data: obj,
-            created: function () {
-                console.log('created!')
+            data: {
+
             },
-            destroyed: function () {
-                console.log('destroyed')
-            }
         })
     </script>
 </body>
