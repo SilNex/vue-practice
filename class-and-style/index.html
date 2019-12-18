@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        .active {
+            font-weight: bold;
+        }
+
+        /* div:hover {
+            color: #ff0000;
+        } */
+    </style>
+    <title>Vue class and style</title>
+</head>
+
+<body>
+    <div id="app">
+        <div :class="{ active: isActive }">
+            hello
+        </div>
+
+        <div class="static" :class="{ active: isActive, 'text-danger': hasError }">
+            hello2
+        </div>
+
+        <div :class="classObjcet">
+            hello3
+        </div>
+
+        <div :class="classObjcet2">
+            hello4
+        </div>
+
+        <div :class="[activeClass, errorClass]">
+            hello5
+        </div>
+
+        <div :style="[baseStyle, overridingStyles]">
+            hello6
+        </div>
+
+        <div :style="{ transition: ['-webkit-box', '-ms-flexbox', 'color 1s'] }">
+            hello7
+        </div>
+
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isActive: true,
+                hasError: false,
+                classObjcet: {
+                    active: true,
+                    'text-danger': false
+                },
+                error: {
+                    type: 'fatal'
+                },
+                activeClass: 'active',
+                errorClass: 'text-danger',
+                baseStyle: {
+                    color: 'blue',
+                },
+                overridingStyles: {
+                    'font-weight': '100'
+                }
+            },
+            computed: {
+                classObjcet2: function () {
+                    return {
+                        active: this.isActive && !this.error,
+                        'text-danger': this.error && this.error.type === 'fatal'
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
